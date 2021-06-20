@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash'              /*Se agrega la libreria lodosh*/ 
+import { isEmpty, size } from 'lodash'              /*Se agrega la libreria lodosh*/ 
 import React, { useState } from 'react'
 import shortid from 'shortid'                 /*se agrega la libreria shortied */
 
@@ -21,7 +21,11 @@ function App() {
     setTasks([...tasks, newTask ])     /*Spread operator con arreglo para agrear a la coleccion de tasks la nueva tarea*/ 
     setTask("")
   }
-  
+
+   const deleteTask = (id) => {        /*se filtran todas las tareas menos la q el ususrio borro*/
+     const filteredTasks = tasks.filter(task => task.id !== id)
+     setTasks(filteredTasks)
+   }
 
   return (
    <div className="container mt-5">
@@ -30,18 +34,35 @@ function App() {
      <div className= "row">
       <div className="col-8">
        <h4 className="text-center">Lista de Tareas</h4>
-       <ul className="list-group">
-        {
-          tasks.map((task) => (
-            <li className="list-group-item" key={task.div}>
-           <span className="lead">{task.name}</span>
-           <button className="btn btn-danger btn-sm float-right mx-2">Eliminar</button>
-           <button className="btn btn-warning btn-sm float-right">Editar</button>
-           </li>
+       
+       {
+         size(tasks) == 0 ? (
+           <h5 className="text-center">Aun no hay Tareas Programadas.</h5>
+         ) : ( 
+            <ul className="list-group">
+              {
+                tasks.map((task) => (                                 /*map se usa para iterar objetos*/
+                <li className="list-group-item" key={task.div}>       
+                  <span className="lead">{task.name}</span>
+                  <button 
+                    className="btn btn-danger btn-sm float-right mx-2"
+                   onClick = {() => deleteTask(task.id)}           
+                  >
+                  Eliminar
+                  </button>
+                  <button 
+                     className="btn btn-warning btn-sm float-right"
+                     >
+                     Editar
+                 </button>
+               </li>
 
           ))    
         }
-        </ul>
+           </ul>
+       )
+      }
+
       </div>
       <div className="col-4">
        <h4 className="text-center">Formulario</h4>
