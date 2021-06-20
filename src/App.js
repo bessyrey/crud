@@ -1,24 +1,24 @@
-import { isEmpty } from 'lodash'
+import { isEmpty } from 'lodash'              /*Se agrega la libreria lodosh*/ 
 import React, { useState } from 'react'
-import shortid from 'shortid'
+import shortid from 'shortid'                 /*se agrega la libreria shortied */
 
 function App() {
-  const [task, setTask] = useState("")
-  const [tasks, setTasks] = useState([])
+  const [task, setTask] = useState("")       /*estado que almacena el nombre de la tarea nueva*/
+  const [tasks, setTasks] = useState([])     /*se crea el arreglo para las nuevas tareas*/
   
   const addTask = (e) => {
-    e.preventDefault()
+    e.preventDefault()                       /*creamos un evento*/
     if (isEmpty(task)) {
       console.log("Task empty")
       return
     }
 
-    const newTask = {
-      id: shortid.generate(),
-      name: task
+    const newTask = {                    /*creamos una variable para agregar una nueva tarea */
+      id: shortid.generate(),            /*genera un codigo alfanumerico q no se repite*/
+      name: task                        /*colocamos un nombre a esa tarea */
     }
 
-    setTasks([...tasks, newTask ])
+    setTasks([...tasks, newTask ])     /*Spread operator con arreglo para agrear a la coleccion de tasks la nueva tarea*/ 
     setTask("")
   }
   
@@ -50,7 +50,7 @@ function App() {
           type="text"
           className="form-control mb-2"
           placeholder="Ingrese la Tarea..." 
-          onChange={(text) => setTask(text.target.value) }
+          onChange={(text) => setTask(text.target.value) }  /*para cambiar el estado */
           value={task}
          />
          <button className="btn btn-dark btn-block"
