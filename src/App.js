@@ -6,12 +6,15 @@ function App() {
   const [task, setTask] = useState("")       /*estado que almacena el nombre de la tarea nueva*/
   const [tasks, setTasks] = useState([])     /*se crea el arreglo para las nuevas tareas*/
   const [editMode, setEditMode]= useState(false)
-  const [id, setId] = useState("")            /*Guarda el estado del id de la tarea a modificar */
+  const [id, setId] = useState("")  
+  const [error, setError] = useState(null)  
+  
+  /*Guarda el estado del id de la tarea a modificar */
   
   const addTask = (e) => {
     e.preventDefault()                       /*creamos un evento*/
     if (isEmpty(task)) {
-      console.log("Task empty")
+      setError("Debes ingresar una tarea.")
       return
     }
 
